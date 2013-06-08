@@ -13,6 +13,7 @@ import com.java.stock.model.entity.Warehouse;
 public interface EmployeeDao {
 	
 	public void addnewEmp(Employee employee) throws DataAccessException,java.sql.SQLException;
+	
 	public List<Employee>  searchEmployee() throws DataAccessException,SQLException;
 	
 	public List<Employee>  searchEmployee(long id, String name) throws DataAccessException,SQLException;

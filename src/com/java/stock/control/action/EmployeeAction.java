@@ -16,6 +16,7 @@ import com.java.stock.common.util.EmployeeBean;
 import com.java.stock.common.util.ServiceFinder;
 import com.java.stock.model.dao.EmployeeDao;
 import com.java.stock.model.entity.Employee;
+import com.java.stock.service.service.EmployeeService;
 
 public class EmployeeAction implements Serializable {
 	
@@ -37,7 +38,7 @@ public class EmployeeAction implements Serializable {
 	private FacesContext context = FacesContext.getCurrentInstance();  
 	private  FacesMessage msg;
 	private HttpSession session = ( HttpSession ) context.getExternalContext().getSession( true );
-	private EmployeeDao empDao =(EmployeeDao)ServiceFinder.findBean("employeeSpringDAO");  
+	private EmployeeService employerService;
 	
 	public EmployeeAction(){
 		theEmployeeList = new  ArrayList<EmployeeBean>();  
@@ -63,14 +64,10 @@ public class EmployeeAction implements Serializable {
         		
         		emp.setWarehouse(emps.getWarehouse());
         		
-        		
-        		empDao.addnewEmp(emp);
+        		employerService.addnewEmp(emp);
         		
         		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Success !", "");
-        		context.addMessage(null, msg);
-        	
-        //	ServiceFinder.gotoPage("ui/home.jsf");
-        	
+        		context.addMessage(null, msg);	
         } catch (DataAccessException e) {
         	msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Save Error !", "");
     		context.addMessage(null, msg);
@@ -82,30 +79,25 @@ public class EmployeeAction implements Serializable {
         	theEmployeeList = new  ArrayList<EmployeeBean>();  
         	List<Employee> wah = null;
         		if(this.getStatus().equals("0")){
-        			 wah = empDao.searchEmployee();
+        			 wah = employerService.searchEmployee();
         		}else if(this.getStatus().equals("1")){
         			if(null == this.getId() || this.getId().equals("")){
-        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "");
+        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please Input ID", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				 wah = empDao.searchEmployee(new Long(id), null);
+        				 wah = employerService.searchEmployee(new Long(id), null);
         			}
         			
         		}else if(this.getStatus().equals("2")){
         			if(null == this.getId() || this.getId().equals("")){
-        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "");
+        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please Input Name", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				wah = empDao.searchEmployee(0, this.getId());
+        				wah = employerService.searchEmployee(0, this.getId());
         			}
         		}
         		EmployeeBean warB;	
-        		/*
-        		 * EmployeeBean(String emp_id,String emp_name
-			,String emp_lname,String emp_addr,String emp_email
-			,String emp_tel,String emp_position,double emp_salary
-			,Date emp_strdate,String emp_state)
-        		 */
+        		
         	if(null != wah){
         		for(Employee wa : wah){
         			warB = new EmployeeBean(String.valueOf(wa.getEmpId()),wa.getEmpFname(),wa.getEmpLname(),wa.getEmpAddr(),wa.getEmpEmail()
@@ -127,9 +119,6 @@ public class EmployeeAction implements Serializable {
 	public void onEdit(RowEditEvent event) {  
 		
 		EmployeeBean whaBean = (EmployeeBean) event.getObject();
-	
-
-	
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Success !", whaBean.getEMP_FNAME());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
     } 

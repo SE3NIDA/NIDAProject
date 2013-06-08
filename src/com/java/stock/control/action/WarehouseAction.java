@@ -1,38 +1,31 @@
 package com.java.stock.control.action;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
-import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DataAccessException;
-
 import com.java.stock.common.util.ServiceFinder;
 import com.java.stock.common.util.WharehouseBean;
-import com.java.stock.model.dao.EmployeeDao;
 import com.java.stock.model.dao.WarehouseDao;
 import com.java.stock.model.entity.Employee;
 import com.java.stock.model.entity.Warehouse;
-import com.sun.xml.internal.ws.developer.Stateful;
+import com.java.stock.service.service.WareHouseService;
 
 
 
-@SessionScoped
-@Stateful
 public class WarehouseAction implements Serializable {  
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private String  id;
 	private String waName;
@@ -45,7 +38,7 @@ public class WarehouseAction implements Serializable {
 	private List<WharehouseBean> warehouseList;  
 	
 	private HttpSession session = ( HttpSession ) FacesContext.getCurrentInstance().getExternalContext().getSession( true );
-	private WarehouseDao warDao =(WarehouseDao)ServiceFinder.findBean("wharehouseSpringDAO");  
+	private WareHouseService wareService ;  
 	
 	public WarehouseAction(){
 		warehouseList = new  ArrayList<WharehouseBean>();  
@@ -69,7 +62,7 @@ public class WarehouseAction implements Serializable {
         			wah.setWaUpby(String.valueOf(emps.getEmpId()));
         		
         			
-        			warDao.addnewWharehouse(wah);
+        			wareService.addnewWharehouse(wah);
         		
         			FacesMessage  msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Success !", "");
         			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -91,13 +84,13 @@ public class WarehouseAction implements Serializable {
         	warehouseList = new  ArrayList<WharehouseBean>();  
         	List<Warehouse> wah = null;
         		if(this.getWaStatus().equals("0")){
-        			 wah = warDao.searchWherehouse();
+        			 wah = wareService.searchWherehouse();
         		}else if(this.getWaStatus().equals("1")){
         			if(null == this.getId() || this.getId().equals("")){
         				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "กรูณา กรอก รหัสคลังสินค้า", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				 wah = warDao.searchWherehouse(new Long(this.getId()), null);
+        				 wah = wareService.searchWherehouse(new Long(this.getId()), null);
         			}
         			
         		}else if(this.getWaStatus().equals("2")){
@@ -105,7 +98,7 @@ public class WarehouseAction implements Serializable {
         				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "กรูณา กรอก รหัสคลังสินค้า", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				wah = warDao.searchWherehouse(0, this.getId());
+        				wah = wareService.searchWherehouse(0, this.getId());
         			}
         		}
         		WharehouseBean warB;	
@@ -135,7 +128,7 @@ public class WarehouseAction implements Serializable {
 	
 	public void genID() {  
 		try {
-			long wah = warDao.maxWharehouseId();
+			long wah = wareService.maxWharehouseId();
 			this.setId(String.valueOf(wah+1));
 		} catch (DataAccessException e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Genarate ID Error !", "");
@@ -164,7 +157,7 @@ public class WarehouseAction implements Serializable {
 						Employee emps = (Employee) session.getAttribute("employeeLogin");
 						wah.setWaUpby(String.valueOf(emps.getEmpId()));
 					
-					warDao.addnewWharehouse(wah);
+						wareService.addnewWharehouse(wah);
 				} catch (DataAccessException e) {
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "แก้ไขข้อมูลคลังสินค้า Error !", whaBean.getWaName());
 					FacesContext.getCurrentInstance().addMessage(null, msg);
