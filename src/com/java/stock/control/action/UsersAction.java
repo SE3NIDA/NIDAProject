@@ -17,8 +17,6 @@ import com.java.stock.model.dao.EmployeeDao;
 import com.java.stock.model.dao.UserDao;
 import com.java.stock.model.entity.Employee;
 import com.java.stock.model.entity.User;
-import com.java.stock.service.service.EmployeeService;
-import com.java.stock.service.service.UserService;
 
 
 
@@ -41,8 +39,7 @@ public class UsersAction implements Serializable {
 	
 	private FacesContext context = FacesContext.getCurrentInstance();  
 	private HttpSession session = ( HttpSession ) context.getExternalContext().getSession(true);
-	private UserService userSerice;  
-	private EmployeeService employerService;
+	private EmployeeDao empDao =(EmployeeDao)ServiceFinder.findBean("employeeSpringDAO");  
 	private  FacesMessage msg;
 	
 	public UsersAction(){
@@ -54,14 +51,15 @@ public class UsersAction implements Serializable {
 		
         try {
         	User usr = null;
-        	
-        	usr = userSerice.validateUserLogin(this.getUserName(), this.getUserPass());
+        	UserDao dao =(UserDao)ServiceFinder.findBean("usersSpringDAO"); 
+        	usr = dao.validateUserLogin(this.getUserName(), this.getUserPass());
         	
         	if(null != usr){
         		   if(usr.getUsState().equals("ACT")){
         			   if(null != usr.getEmployee()){
         			       Employee emp = usr.getEmployee();
         			       session.setAttribute("employeeLogin", emp);
+        			       System.out.println(usr.getUsCredate());
         			   }
         			ServiceFinder.gotoPage("ui/home.jsf");
         		   }else{
@@ -93,15 +91,15 @@ public class UsersAction implements Serializable {
         				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please fill in employee number", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				 wah = employerService.searchEmployee(new Long(this.getUserName()), null);
+        				 wah = empDao.searchEmployee(new Long(this.getUserName()), null);
         			}
         			
         		}else if(this.getUserState().equals("2")){
         			if(null == this.getUserName() || this.getUserName().equals("")){
-        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please fill in employee Name", "");
+        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				wah = employerService.searchEmployee(0, this.getUserName());
+        				wah = empDao.searchEmployee(0, this.getUserName());
         			}
         		}
         		EmployeeBean warB;	

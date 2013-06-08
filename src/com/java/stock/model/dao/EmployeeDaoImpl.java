@@ -14,7 +14,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.java.stock.model.entity.Employee;
-import com.java.stock.model.entity.Warehouse;
 
 public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao {
 

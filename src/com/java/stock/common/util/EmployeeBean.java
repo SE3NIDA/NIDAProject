@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class EmployeeBean  implements Serializable {  
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String EMP_ID;
 	public String EMP_FNAME;
 	public String EMP_LNAME;

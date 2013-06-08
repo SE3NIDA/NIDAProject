@@ -11,12 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DataAccessException;
+
 import com.java.stock.common.util.ServiceFinder;
 import com.java.stock.common.util.WharehouseBean;
 import com.java.stock.model.dao.WarehouseDao;
 import com.java.stock.model.entity.Employee;
 import com.java.stock.model.entity.Warehouse;
-import com.java.stock.service.service.WareHouseService;
 
 
 
@@ -26,7 +26,6 @@ public class WarehouseAction implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private String  id;
 	private String waName;
 	private String waLocate;
@@ -38,7 +37,7 @@ public class WarehouseAction implements Serializable {
 	private List<WharehouseBean> warehouseList;  
 	
 	private HttpSession session = ( HttpSession ) FacesContext.getCurrentInstance().getExternalContext().getSession( true );
-	private WareHouseService wareService ;  
+	private WarehouseDao warDao =(WarehouseDao)ServiceFinder.findBean("wharehouseSpringDAO");  
 	
 	public WarehouseAction(){
 		warehouseList = new  ArrayList<WharehouseBean>();  
@@ -62,7 +61,7 @@ public class WarehouseAction implements Serializable {
         			wah.setWaUpby(String.valueOf(emps.getEmpId()));
         		
         			
-        			wareService.addnewWharehouse(wah);
+        			warDao.addnewWharehouse(wah);
         		
         			FacesMessage  msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Success !", "");
         			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -84,13 +83,13 @@ public class WarehouseAction implements Serializable {
         	warehouseList = new  ArrayList<WharehouseBean>();  
         	List<Warehouse> wah = null;
         		if(this.getWaStatus().equals("0")){
-        			 wah = wareService.searchWherehouse();
+        			 wah = warDao.searchWherehouse();
         		}else if(this.getWaStatus().equals("1")){
         			if(null == this.getId() || this.getId().equals("")){
         				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "กรูณา กรอก รหัสคลังสินค้า", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				 wah = wareService.searchWherehouse(new Long(this.getId()), null);
+        				 wah = warDao.searchWherehouse(new Long(this.getId()), null);
         			}
         			
         		}else if(this.getWaStatus().equals("2")){
@@ -98,7 +97,7 @@ public class WarehouseAction implements Serializable {
         				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "กรูณา กรอก รหัสคลังสินค้า", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
-        				wah = wareService.searchWherehouse(0, this.getId());
+        				wah = warDao.searchWherehouse(0, this.getId());
         			}
         		}
         		WharehouseBean warB;	
@@ -128,7 +127,7 @@ public class WarehouseAction implements Serializable {
 	
 	public void genID() {  
 		try {
-			long wah = wareService.maxWharehouseId();
+			long wah = warDao.maxWharehouseId();
 			this.setId(String.valueOf(wah+1));
 		} catch (DataAccessException e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Genarate ID Error !", "");
@@ -157,7 +156,7 @@ public class WarehouseAction implements Serializable {
 						Employee emps = (Employee) session.getAttribute("employeeLogin");
 						wah.setWaUpby(String.valueOf(emps.getEmpId()));
 					
-						wareService.addnewWharehouse(wah);
+					warDao.addnewWharehouse(wah);
 				} catch (DataAccessException e) {
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "แก้ไขข้อมูลคลังสินค้า Error !", whaBean.getWaName());
 					FacesContext.getCurrentInstance().addMessage(null, msg);
