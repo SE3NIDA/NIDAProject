@@ -30,7 +30,7 @@
 				    <p:growl id="mess" showDetail="true" autoUpdate="true"/>  
 			
 				    <p:dataTable  var="employeeBean" value="#{empAc.theEmployeeList}" id="employeeBean" 
-				               editable="true"  paginator="true" rows="10"  rowIndexVar="rowIndex" style="width:990px;">  
+				               editable="true"  paginator="true" rows="10"  rowIndexVar="rowIndex" style="width:1200px;">  
 				  
 				        <f:facet name="header">  
 				            Result 
@@ -53,57 +53,57 @@
 				                    <h:outputText value="#{employeeBean.EMP_FNAME} #{employeeBean.EMP_LNAME}" />  
 				                </f:facet>  
 				                <f:facet name="input">  
-				                    <p:inputText value="#{employeeBean.EMP_FNAME}" style="width:100%" label="Year"/>  
-				                    <p:inputText value="#{employeeBean.EMP_LNAME}" style="width:100%" label="Year"/>  
+				                    <p:inputText value="#{employeeBean.EMP_FNAME}" style="width:100%" />  
+				                    <p:inputText value="#{employeeBean.EMP_LNAME}" style="width:100%"/>  
 				                </f:facet>  
 				            </p:cellEditor>  
 				        </p:column>  
 				        
-				         <p:column headerText="ที่อยู่" style="width:40%">  
+				         <p:column headerText="ที่อยู่" style="width:60%">  
 				            <p:cellEditor>  
 				                <f:facet name="output">  
 				                    <h:outputText value="#{employeeBean.EMP_ADDR}" />  
 				                </f:facet>  
 				                <f:facet name="input">  
-				                    <p:inputText value="#{employeeBean.EMP_ADDR}" style="width:100%" label="Year"/>  
+				                    <p:inputText value="#{employeeBean.EMP_ADDR}" style="width:100%"/>  
 				                </f:facet>  
 				            </p:cellEditor>  
 				        </p:column>  
 				        
-				        <p:column headerText="email" style="width:20%">  
+				        <p:column headerText="email" style="width:10%">  
 				            <p:cellEditor>  
 				                <f:facet name="output">  
 				                    <h:outputText value="#{employeeBean.EMP_EMAIL}" />  
 				                </f:facet>  
 				                <f:facet name="input">  
-				                    <p:inputText value="#{employeeBean.EMP_EMAIL}" style="width:100%" label="Year"/>  
+				                    <p:inputText value="#{employeeBean.EMP_EMAIL}" style="width:50%"/>  
 				                </f:facet>  
 				            </p:cellEditor>  
 				        </p:column> 
 				        
-				        <p:column headerText="TEL" style="width:20%">  
+				        <p:column headerText="TEL" style="width:10%">  
 				            <p:cellEditor>  
 				                <f:facet name="output">  
 				                    <h:outputText value="#{employeeBean.EMP_TEL}" />  
 				                </f:facet>  
 				                <f:facet name="input">  
-				                    <p:inputText value="#{employeeBean.EMP_TEL}" style="width:100%" label="Year"/>  
+				                    <p:inputText value="#{employeeBean.EMP_TEL}" style="width:50%" />  
 				                </f:facet>  
 				            </p:cellEditor>  
 				        </p:column> 
 				        
-				        <p:column headerText="ตำแหน่งงาน" style="width:20%">  
+				        <p:column headerText="ตำแหน่งงาน" style="width:10%">  
 				            <p:cellEditor>  
 				                <f:facet name="output">  
 				                    <h:outputText value="#{employeeBean.EMP_POSITION}" />  
 				                </f:facet>  
 				                <f:facet name="input">  
-				                    <p:inputText value="#{employeeBean.EMP_POSITION}" style="width:100%" label="Year"/>  
+				                    <p:inputText value="#{employeeBean.EMP_POSITION}" style="width:50%"/>  
 				                </f:facet>  
 				            </p:cellEditor>  
 				        </p:column> 
 				        
-				        <p:column headerText="เงินเดือน" style="width:20%">  
+				        <p:column headerText="เงินเดือน" style="width:10%">  
 				            <p:cellEditor>  
 				                <f:facet name="output">  
 				                    <h:outputText value="#{employeeBean.EMP_SALARY}" />  
@@ -114,7 +114,7 @@
 				            </p:cellEditor>  
 				        </p:column> 
 				        
-				         <p:column sortBy="#{employeeBean.EMP_STRDATE}" headerText="วันที่เริ่มทำงาน" style="width:30%">  
+				         <p:column sortBy="#{employeeBean.EMP_STRDATE}" headerText="วันที่เริ่มทำงาน" style="width:50%">  
 				            <p:cellEditor>  
 				                <f:facet name="output">  
 				                    <h:outputText value="#{employeeBean.EMP_STRDATE}" >  
@@ -122,8 +122,8 @@
 				                     </h:outputText>
 				                </f:facet>  
 				                <f:facet name="input">  
-				                    <p:calendar value="#{employeeBean.EMP_STRDATE}" label="วันที่เริ่มทำงาน" id="popupButtonCal" showOn="button" /> 
-
+				                    <p:calendar value="#{employeeBean.EMP_STRDATE}" navigator="true" effect="slideDown" 
+				                          label="วันที่เริ่มทำงาน" id="popupButtonCal" showOn="button"/> 
 				                </f:facet>  
 				            </p:cellEditor>  
 				        </p:column> 

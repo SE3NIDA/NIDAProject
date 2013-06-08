@@ -35,7 +35,6 @@ public class EmployeeAction implements Serializable {
 	private List<EmployeeBean> theEmployeeList;
 	
 	private FacesContext context = FacesContext.getCurrentInstance();  
-	private  FacesMessage msg;
 	private HttpSession session = ( HttpSession ) context.getExternalContext().getSession( true );
 	private EmployeeDao empDao =(EmployeeDao)ServiceFinder.findBean("employeeSpringDAO");  
 	
@@ -66,14 +65,14 @@ public class EmployeeAction implements Serializable {
         		
         		empDao.addnewEmp(emp);
         		
-        		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Success !", "");
-        		context.addMessage(null, msg);
+        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Save Success", "");
+	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         	
         //	ServiceFinder.gotoPage("ui/home.jsf");
         	
         } catch (DataAccessException e) {
-        	msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Save Error !", "");
-    		context.addMessage(null, msg);
+        	FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Save Error", "");
+        	FacesContext.getCurrentInstance().addMessage(null, msg);
         }   
  
     }
@@ -108,8 +107,16 @@ public class EmployeeAction implements Serializable {
         		 */
         	if(null != wah){
         		for(Employee wa : wah){
+        			String state = null;
+        			if(wa.getEmpStatus().equals("ACT"))
+						state = "Active";
+					else if(wa.getEmpStatus().equals("WAI"))
+						state = "Waite";
+					else if(wa.getEmpStatus().equals("DEL"))
+						state = "Delete";
+        			
         			warB = new EmployeeBean(String.valueOf(wa.getEmpId()),wa.getEmpFname(),wa.getEmpLname(),wa.getEmpAddr(),wa.getEmpEmail()
-        					,wa.getEmpTel(),wa.getEmpPosition(),wa.getEmpSalary().doubleValue(), wa.getEmpStrdate(),wa.getEmpStatus(),null,null);
+        					,wa.getEmpTel(),wa.getEmpPosition(),wa.getEmpSalary().doubleValue(), wa.getEmpStrdate(),state,null,null,null);
         			theEmployeeList.add(warB);
         		}
         	}

@@ -21,11 +21,12 @@ public class EmployeeBean  implements Serializable {
 	public String EMP_STATE;
 	public String EMP_USER;
 	public String EMP_PASS;
+	public String EMP_LEVEL;
 	
 	public EmployeeBean(String emp_id,String emp_name
 			,String emp_lname,String emp_addr,String emp_email
 			,String emp_tel,String emp_position,double emp_salary
-			,Date emp_strdate,String emp_state, String user, String pass){
+			,Date emp_strdate,String emp_state, String user, String pass, String level){
 		this.EMP_ID = emp_id;
 		this.EMP_FNAME = emp_name;
 		this.EMP_LNAME = emp_lname;
@@ -38,6 +39,7 @@ public class EmployeeBean  implements Serializable {
 		this.EMP_STATE = emp_state;
 		this.EMP_USER = user;
 		this.EMP_PASS = pass;
+		this.EMP_LEVEL = level;
 		
 	}
 	public String getEMP_ID() {
@@ -112,6 +114,13 @@ public class EmployeeBean  implements Serializable {
 	}
 	public void setEMP_PASS(String eMP_PASS) {
 		EMP_PASS = eMP_PASS;
+	}
+	
+	public String getEMP_LEVEL() {
+		return EMP_LEVEL;
+	}
+	public void setEMP_LEVEL(String eMP_LEVEL) {
+		EMP_LEVEL = eMP_LEVEL;
 	}
 	public boolean equals(Object obj)
 	  {

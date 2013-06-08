@@ -65,7 +65,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
 	@Override
 	public void addnewUser(User user) throws DataAccessException, SQLException {
-		getHibernateTemplate().save(user);
+		getHibernateTemplate().saveOrUpdate(user);
 	}
 
 }
