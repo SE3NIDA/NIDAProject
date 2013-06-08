@@ -85,7 +85,7 @@ public class EmployeeAction implements Serializable {
         			 wah = empDao.searchEmployee();
         		}else if(this.getStatus().equals("1")){
         			if(null == this.getId() || this.getId().equals("")){
-        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "");
+        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please full in ID", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
         				 wah = empDao.searchEmployee(new Long(id), null);
@@ -93,7 +93,7 @@ public class EmployeeAction implements Serializable {
         			
         		}else if(this.getStatus().equals("2")){
         			if(null == this.getId() || this.getId().equals("")){
-        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "");
+        				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please full in Name", "");
         	        	FacesContext.getCurrentInstance().addMessage(null, msg);
         			}else{
         				wah = empDao.searchEmployee(0, this.getId());
@@ -128,7 +128,31 @@ public class EmployeeAction implements Serializable {
 		
 		EmployeeBean whaBean = (EmployeeBean) event.getObject();
 	
-
+		try {
+			Employee emp =  empDao.searchEmployeeByID(new Long(whaBean.getEMP_ID()));
+			
+			emp.setEmpAddr(whaBean.getEMP_ADDR());
+			emp.setEmpEmail(whaBean.getEMP_EMAIL());
+			emp.setEmpFname(whaBean.getEMP_FNAME());
+			emp.setEmpLname(whaBean.getEMP_LNAME());
+			emp.setEmpTel(whaBean.getEMP_TEL());
+			emp.setEmpPosition(whaBean.getEMP_POSITION());
+			emp.setEmpStatus(whaBean.getEMP_STATE());
+			emp.setEmpSalary(new BigDecimal(whaBean.getEMP_SALARY()));
+			emp.setEmpStrdate(whaBean.getEMP_STRDATE());
+			
+			empDao.addnewEmp(emp);
+			
+		} catch (DataAccessException e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Error !", whaBean.getEMP_FNAME());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch (NumberFormatException e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Error !", whaBean.getEMP_FNAME());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch (SQLException e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Error !", whaBean.getEMP_FNAME());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Success !", whaBean.getEMP_FNAME());
 				FacesContext.getCurrentInstance().addMessage(null, msg);

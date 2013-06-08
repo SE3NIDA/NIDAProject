@@ -16,4 +16,6 @@ public interface EmployeeDao {
 	public List<Employee>  searchEmployee() throws DataAccessException,SQLException;
 	
 	public List<Employee>  searchEmployee(long id, String name) throws DataAccessException,SQLException;
+	
+	public Employee  searchEmployeeByID(long id) throws DataAccessException,SQLException;
 }

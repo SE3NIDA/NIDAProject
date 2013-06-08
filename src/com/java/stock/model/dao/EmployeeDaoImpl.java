@@ -22,7 +22,7 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
 			SQLException {
 		// TODO Auto-generated method stub
 		
-		getHibernateTemplate().save(employee);
+		getHibernateTemplate().saveOrUpdate(employee);
 
 	}
 
@@ -49,7 +49,7 @@ public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao 
 	@Override
 	public List<Employee> searchEmployee(long id, String name)
 			throws DataAccessException, SQLException {
-List<Employee> objs = null;
+		List<Employee> objs = null;
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
 		if(id != 0)
@@ -67,6 +67,25 @@ List<Employee> objs = null;
 		  }
 		
 		return objs;
+	}
+
+	@Override
+	public Employee searchEmployeeByID(long id)
+			throws DataAccessException, SQLException {
+		
+		Employee wah = null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
+		if(id != 0)
+			criteria.add(Expression.idEq(id));	
+		
+		List results = getHibernateTemplate().findByCriteria(criteria);
+		
+		Iterator itr = results.iterator();
+		  while(itr.hasNext()){
+			   wah = (Employee) itr.next();
+		  }
+		
+		return wah;
 	}
 
 }
