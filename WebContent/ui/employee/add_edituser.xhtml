@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../../templates/layoutComplex.xhtml">
+    
+   
+
+	<ui:define name="content">
+		<div class="entry">
+           
+            <h:form id="form">
+		
+           
+                <p:panel id="panel" header=">> เพิ่ม/ลบ ข้อมูลผู้ใช้งานระบบ " style="width:500px;">
+                    <h:panelGrid columns="4" >     
+                        <p:selectOneMenu value="#{userAc.userState}" label="สถานะ" style="width:170px;">  
+            				<f:selectItem itemLabel="รหัสพนักงาน" itemValue="1" />  
+            				<f:selectItem itemLabel="ชื่อพนักงาน" itemValue="2" />  
+        				</p:selectOneMenu>
+              	 		<p:inputText id="waid" value="#{userAc.userName}" label="รหัสพนักงาน" style="width:200px;"/> 
+              	 		<h:outputLabel />
+              	 		<p:commandButton value="Search" actionListener="#{userAc.searchAction}" update=":form,:form:mess" style="width:75px; height:25px; text-align:right;" />
+                 	 </h:panelGrid>
+                </p:panel>
+                 <p:spacer height="10" />
+       			      
+				    <p:growl id="mess" showDetail="true" autoUpdate="true"/>  
+			
+				    <p:dataTable  var="employeeBean" value="#{userAc.theEmployeeList}" id="employeeBean" 
+				               editable="true"  paginator="true" rows="10"  rowIndexVar="rowIndex" style="width:990px;">  
+				  
+				        <f:facet name="header">  
+				            Result 
+				        </f:facet>  
+				 
+				        <p:column sortBy="#{employeeBean.EMP_ID}" headerText="รหัสพนักงาน" style="width:10%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{employeeBean.EMP_ID}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <h:outputText value="#{employeeBean.EMP_ID}" />   
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column>  
+				  
+				        <p:column headerText="ชื่อ นามสกุล" style="width:30%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{employeeBean.EMP_FNAME} #{employeeBean.EMP_LNAME}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <h:outputText value="#{employeeBean.EMP_FNAME} #{employeeBean.EMP_LNAME}" />      
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column>  
+				        
+				         <p:column headerText="User Name" style="width:30%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{employeeBean.EMP_USER}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <p:inputText value="#{employeeBean.EMP_USER}" />  
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column>  
+				        
+				         <p:column headerText="User Name" style="width:30%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{employeeBean.EMP_PASS}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <p:inputText value="#{employeeBean.EMP_PASS}" />  
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column> 
+				        
+				        
+				        <p:column headerText="ระดับการใช้งาน" style="width:20%">  
+				            <p:cellEditor>  
+               					 <f:facet name="output">  
+                    				<h:outputText value="#{employeeBean.EMP_STATE}" />  
+                				</f:facet>  
+                				<f:facet name="input">  
+                    			<p:selectOneMenu value="#{employeeBean.EMP_STATE}" style="width:110px;" >  
+            						<f:selectItem itemLabel="Administator" itemValue="1" />  
+            						<f:selectItem itemLabel="Manager" itemValue="2" />  
+            						<f:selectItem itemLabel="Employee" itemValue="3" />  
+        						</p:selectOneMenu>  
+                				</f:facet>  
+            				</p:cellEditor> 
+				        </p:column> 
+				        
+				      
+			
+				  
+				        <p:column sortBy="#{employeeBean.EMP_STATE}" headerText="สถานะ" style="width:20%">  
+				            <p:cellEditor>  
+               					 <f:facet name="output">  
+                    				<h:outputText value="#{employeeBean.EMP_STATE}" />  
+                				</f:facet>  
+                				<f:facet name="input">  
+                    			<p:selectOneMenu value="#{employeeBean.EMP_STATE}" style="width:70px;" >  
+            						<f:selectItem itemLabel="Active" itemValue="ACT" />  
+            						<f:selectItem itemLabel="Waite" itemValue="WAI" />  
+            						<f:selectItem itemLabel="Delete" itemValue="DEL" />  
+        						</p:selectOneMenu>  
+                				</f:facet>  
+            				</p:cellEditor> 
+				        </p:column> 
+				  
+				        <p:column style="width:6%">  
+				            <p:rowEditor />  
+				        </p:column>  
+				        
+				        <p:ajax event="rowEdit" listener="#{userAc.onEdit}" process="@this" update=":form:mess" >  </p:ajax>
+				        <p:ajax event="rowEditCancel" listener="#{userAc.onCancel}" process="@this"  update=":form:mess">  </p:ajax>
+				  
+				    </p:dataTable>  
+				</h:form>  
+	  </div>
+	
+	</ui:define>
+	
+</ui:composition>

@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../../templates/layoutComplex.xhtml">
+    
+   
+
+	<ui:define name="content">
+	
+		<div class="entry">
+            <h:form id="form">
+		
+                <p:panel id="panel" header="   >> เพิ่มข้อมูลคลังสินค้า" style="width:700px;">
+                    <p:messages id="messages" autoUpdate="true"/>
+                    
+                    <h:panelGrid columns="3" >     
+                                  
+                        <h:outputLabel for="empid" value="รหัสคลังสินค้า : *" />  
+              	 		<p:inputText id="empid" value="#{warAc.id}" label="รหัสคลังสินค้า" required="true" style="width:170px; font-weight: bolder; color:red;"/> 
+              	 		<p:commandButton value="GEN ID" update="empid" process="@this" actionListener="#{warAc.genID}" style="width:75px; height:25px;" />
+						
+						
+
+                        <h:outputLabel for="empname" value="ชื่อคลังสินค้า : *" />  
+              	 		<p:inputText id="empname" value="#{warAc.waName}" label="ชื่อคลังสินค้า" required="true" style="width:170px;" />
+                        <h:outputLabel /> 
+              	 
+              	 	
+              		 	<h:outputLabel for="addrs" value="ที่อยู่ : " />  
+              		 	<p:inputTextarea rows="5" cols="30"  label="ที่อยู่"   value="#{warAc.waLocate}"  autoResize="false"/>
+              		 	<h:outputLabel />  
+						
+						
+              	 		
+              	 
+                   		<h:outputLabel value="E-Mail  : " />  
+              	 		<p:inputText value="#{warAc.waEmail}" label="E-Mail" style="width:170px;"
+              	 			validatorMessage="E-Mail  : Format ไม่ถูกต้อง" >
+              	 		    <f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+						<h:outputLabel />  
+		
+
+              	 		<h:outputLabel value="เบอร์โทรศัพท์ : " />  
+              	 		<p:inputMask  value="#{warAc.waTel}" label="เบอร์โทรศัพท์" mask="9?99999999999999" maxlength="15" style="width:170px;"/>
+              	 		<h:outputLabel />  
+              	 		 
+
+            	 		<h:outputLabel value="สถานะ  : " />  
+            	 		
+              	 		<p:selectOneMenu value="#{warAc.waStatus}" label="สถานะ" style="width:170px;">  
+            				<f:selectItem itemLabel="Active" itemValue="ACT" />  
+            				<f:selectItem itemLabel="Waite" itemValue="WAI" />  
+            				<f:selectItem itemLabel="Delete" itemValue="DEL" />  
+        				</p:selectOneMenu>
+        				<h:outputLabel />  
+              	 		
+					    
+                    
+                    	<p:commandButton value="Save" actionListener="#{warAc.saveAction}" />
+                 		<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{warAc.reset}" />
+                 	 </h:panelGrid>
+                </p:panel>
+
+			</h:form>
+	  </div>
+	
+	</ui:define>
+	
+</ui:composition>

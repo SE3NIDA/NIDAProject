@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+    
+       <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>The Best Ware House Store</title>
+        </f:facet>
+        
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+		<ui:insert name="head"></ui:insert>
+        
+        <script type="text/javascript">
+            $(function() {$('.sidebar a').hover(function() {$(this).toggleClass('ui-state-hover');})});
+        </script>
+        
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-12200033-3']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+          </script>
+	</h:head>
+
+
+        <h:body>
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit position="north" size="100" header="The Best Warehouse" resizable="true" collapsible="true">
+                    <h:outputText value="Wellcome to The Best Warehouse Store." />
+                      <div id="globalthemeswitcher">
+                        <h:form>
+                            <p:themeSwitcher value="#{themeSwitcherBean.theme}" style="width:175px;" effect="fade" var="t">
+                                <f:selectItem itemLabel="Choose Theme" itemValue="" />
+                                <f:selectItems value="#{themeSwitcherBean.advancedThemes}" var="theme" itemLabel="#{theme.name}" itemValue="#{theme}"/>
+                                <p:ajax listener="#{themeSwitcherBean.saveTheme}" />
+                                
+                                <p:column>
+                                    <h:graphicImage name="images/themes/#{t.image}" />
+                                </p:column>
+                                
+                                <p:column>
+                                    #{t.name}
+                                </p:column>
+                        </p:themeSwitcher>
+                        </h:form>
+                    </div>
+                </p:layoutUnit>
+               
+ 			
+ 			 <p:layoutUnit id="center" position="center" size="300">
+ 			 <h:form id="form">
+               <p:panel id="panel" header="Login" style="position:absolute; left:450px; width:370px">
+                    <p:messages id="messages"  autoUpdate="true"/>
+                    
+                    <h:panelGrid columns="2" >                   
+                        <h:outputLabel for="user" value="User Name: *" />
+                        <p:inputText  id="user" value="#{userAc.userName}" label="User Name" required="true" requiredMessage="กรุณากรอก ชื่อผู้ใช้" />
+                        <h:outputLabel for="pwd" value="Password: *" />
+                        <p:password id="pwd" value="#{userAc.userPass}" label="Password" required="true" requiredMessage="กรุณากรอก รหัสผ่าน" />
+                        <p:commandButton value="Login" actionListener="#{userAc.loginAction}" />
+                     	<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{userAc.reset}" />
+                    </h:panelGrid>
+                    
+                </p:panel>
+                </h:form>
+                <ui:insert name="status">
+            <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+                <f:facet name="start">
+                    <p:graphicImage value="/images/loading.gif" />
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+        </ui:insert>
+			</p:layoutUnit>
+        </p:layout>
+            
+        </h:body>
+        <ui:insert name="highlight">
+		<script language="javascript" src="#{request.contextPath}/syntaxhighlighter/scripts/sh.js"></script>
+		<script language="javascript">
+			dp.SyntaxHighlighter.ClipboardSwf = '#{request.contextPath}/syntaxhighlighter/scripts/clipboard.swf';
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</ui:insert>
+    </f:view>
+</html>

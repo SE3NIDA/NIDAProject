@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+	
+    <!--  Add Class DAO for Spring inject -->
+   	<bean id="usersSpringDAO" class="com.java.stock.model.dao.UserDaoImpl">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+	
+	<bean id="employeeSpringDAO" class="com.java.stock.model.dao.EmployeeDaoImpl">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+	
+	<bean id="wharehouseSpringDAO" class="com.java.stock.model.dao.WarehouseDaoImpl">
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+	</bean>
+	
+	<!-- bean id="SpringHibernateDao" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref local="transactionManager"/></property>
+		<property name="target"><ref local="usersSpringDAO"/></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="store*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean !-->
+
+</beans>

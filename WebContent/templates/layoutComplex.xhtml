@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+    
+       <h:head>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>The Best Ware House Store</title>
+        </f:facet>
+        
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+		<ui:insert name="head"></ui:insert>
+        
+        <script type="text/javascript">
+            $(function() {$('.sidebar a').hover(function() {$(this).toggleClass('ui-state-hover');})});
+        </script>
+        
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-12200033-3']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+          </script>
+	</h:head>
+
+
+        <h:body>
+
+            <p:layout fullPage="true" >
+
+                <p:layoutUnit position="north" size="75" header="The Best Warehouse" resizable="true" collapsible="true">
+                   <div style="font-size:1.2em; font-weight:bold;">
+                 	 &nbsp;&nbsp;&nbsp;Welcome &nbsp; #{empService.fName} &nbsp;&nbsp;#{empService.lName} 
+                  </div>
+                      <div id="globalthemeswitcher">
+                        <h:form>
+                            <p:themeSwitcher value="#{themeSwitcherBean.theme}" style="width:175px;" effect="fade" var="t">
+                                <f:selectItem itemLabel="Choose Theme" itemValue="" />
+                                <f:selectItems value="#{themeSwitcherBean.advancedThemes}" var="theme" itemLabel="#{theme.name}" itemValue="#{theme}"/>
+                                <p:ajax listener="#{themeSwitcherBean.saveTheme}" />
+                                
+                                <p:column>
+                                    <h:graphicImage name="images/themes/#{t.image}" />
+                                </p:column>
+                                
+                                <p:column>
+                                    #{t.name}
+                                </p:column>
+                        </p:themeSwitcher>
+                        </h:form>
+                    </div>
+                </p:layoutUnit>
+
+                <p:layoutUnit id="bottom" position="south" size="30">
+                   <h:outputText value="Copy Ring By The Best Warehouse Store Web V.0.1" />
+                </p:layoutUnit>
+
+                <p:layoutUnit id="left" position="west" size="250" resizable="true"  collapsible="true" header="Menu" minSize="100" style="text-align:left">
+                    <p:accordionPanel>
+                        <p:tab title="คลังสินค้า">
+                           <table>
+                            <tr><td>
+                                <p:graphicImage value="/images/open.png" />
+                            	<a href="#{request.contextPath}/ui/store/addwherehouse.jsf">เพิ่มข้อมูลคลังสินค้า </a>
+                            </td></tr>
+                            <tr><td>
+                                <p:graphicImage value="/images/open.png" />
+                            	<a href="#{request.contextPath}/ui/store/editwherehouse.jsf">แก้ไข/ลบ ค้นหาข้อมูลคลังสินค้า </a>
+                            </td></tr>
+                            <tr><td>
+                                <p:graphicImage value="/images/open.png" />
+                            	<a href="#{request.contextPath}/ui/employee/addemployee.jsf">เพิ่มข้อมูลพนักงาน </a>
+                            </td></tr>
+                             <tr><td>
+                                <p:graphicImage value="/images/open.png" />
+                            	<a href="#{request.contextPath}/ui/employee/editemployee.jsf">แก้ไข/ลบ ข้อมูลพนักงาน</a>
+                            </td></tr>
+                            <tr><td>
+                                <p:graphicImage value="/images/open.png" />
+                            	<a href="#{request.contextPath}/ui/employee/add_edituser.jsf">เพิ่ม/ลบ ข้อมูลผู้ใช้งานระบบ</a>
+                            </td></tr>
+                           </table>
+                        </p:tab>
+
+                        <p:tab title="รายการสินค้า">
+                            <h:outputText value="Menu 2 Content" />
+                        </p:tab>
+
+                        <p:tab title="ข้อมูลส่วนตัว และ อื่นๆ">
+                            <h:outputText value="Menu 3 Content" />
+                        </p:tab>
+                    </p:accordionPanel>
+                </p:layoutUnit>
+
+                <p:layoutUnit id="center" position="center">
+                    <div id="content">
+                        <div class="post">
+                            <ui:insert name="content"></ui:insert>
+                        </div>
+                    </div>
+                     <ui:insert name="status">
+           				 <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+                			<f:facet name="start">
+                    			<p:graphicImage value="/images/loading.gif" />
+               				</f:facet>
+
+			                <f:facet name="complete">
+			                    <h:outputText value="" />
+			                </f:facet>
+            			</p:ajaxStatus>
+        			</ui:insert>
+                </p:layoutUnit>
+
+            </p:layout>
+        </h:body>
+        
+        <ui:insert name="highlight">
+		<script language="javascript" src="#{request.contextPath}/syntaxhighlighter/scripts/sh.js"></script>
+		<script language="javascript">
+			dp.SyntaxHighlighter.ClipboardSwf = '#{request.contextPath}/syntaxhighlighter/scripts/clipboard.swf';
+			dp.SyntaxHighlighter.HighlightAll('code');
+		</script>
+	</ui:insert>
+
+    </f:view>
+</html>

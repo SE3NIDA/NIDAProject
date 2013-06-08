@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+	
+    <application>
+        <resource-bundle>
+            <base-name>org.primefaces.examples.build</base-name>
+            <var>build</var>
+        </resource-bundle>
+    </application>
+
+    <factory>
+        <exception-handler-factory>org.primefaces.examples.application.ShowcaseExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+    
+    <managed-bean>
+        <managed-bean-name>guestPreferences</managed-bean-name>
+        <managed-bean-class>org.primefaces.examples.view.GuestPreferences</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    
+    <managed-bean>
+        <managed-bean-name>empAc</managed-bean-name>
+        <managed-bean-class>com.java.stock.control.action.EmployeeAction</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+
+     <managed-bean>
+        <managed-bean-name>warAc</managed-bean-name>
+        <managed-bean-class>com.java.stock.control.action.WarehouseAction</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>userAc</managed-bean-name>
+        <managed-bean-class>com.java.stock.control.action.UsersAction</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>tableBean</managed-bean-name>
+        <managed-bean-class>org.primefaces.examples.view.TableBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+ 
+    <managed-bean>
+        <managed-bean-name>empService</managed-bean-name>
+        <managed-bean-class>com.java.stock.service.util.EmployeeService</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>themeSwitcherBean</managed-bean-name>
+        <managed-bean-class>org.primefaces.examples.view.ThemeSwitcherBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>gp</property-name>
+            <value>#{guestPreferences}</value>
+        </managed-property>
+    </managed-bean>
+   
+</faces-config>
