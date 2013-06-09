@@ -11,33 +11,33 @@
 		<div class="entry">
            
             <h:form id="form">
-                <p:panel id="panel" header=">> เพิ่มข้อมูลพนักงาน " style="width:700px;">
+                <p:panel id="panel" header=">> เพิ่มข้อมูลลูกค้า " style="width:700px;">
                     <p:messages id="messages" autoUpdate="true"/>
                     
                     <h:panelGrid columns="4" >     
                                   
-                        <h:outputLabel for="empid" value="รหัสพนักงาน : *" />  
-              	 		<p:inputText id="empid" value="#{empAc.id}" label="รหัสพนักงาน" required="true" />
+                        <h:outputLabel for="cusid" value="รหัสลูกค้า : *" />  
+              	 		<p:inputText id="cusid" value="#{custAc.id}" label="รหัสลูกค้า" required="true" />
 						<h:outputLabel />  
 						<h:outputLabel /> 
 						
 
-                        <h:outputLabel for="empname" value="ชื่อพนักงาน : *" />  
-              	 		<p:inputText id="empname" value="#{empAc.fName}" label="ชื่อพนักงาน" required="true"/>
+                        <h:outputLabel for="cusname" value="ชื่อลูกค้า : *" />  
+              	 		<p:inputText id="cusname" value="#{custAc.fName}" label="ชื่อลูกค้า" required="true"/>
               	 
               	 		<h:outputLabel for="lname" value="นามสกุล : *" />  
-              	 		<p:inputText id="lname" value="#{empAc.lName}" label="นามสกุล" required="true"/>
+              	 		<p:inputText id="lname" value="#{custAc.lName}" label="นามสกุล" required="true"/>
               	 		
               	 
               		 	<h:outputLabel for="addrs" value="ที่อยู่ : " />  
-              		 	<p:inputTextarea rows="5" cols="30"  label="ที่อยู่"   value="#{empAc.addrs}"  autoResize="false"/>
+              		 	<p:inputTextarea rows="5" cols="30"  label="ที่อยู่"   value="#{custAc.addrs}"  autoResize="false"/>
               		 	<h:outputLabel />  
 						<h:outputLabel /> 
 						
               	 		
               	 
                    		<h:outputLabel value="E-Mail  : " />  
-              	 		<p:inputText value="#{empAc.email}" label="E-Mail" 
+              	 		<p:inputText value="#{custAc.email}" label="E-Mail" 
               	 			validatorMessage="E-Mail  : Format ไม่ถูกต้อง" >
               	 		    <f:validateRegex
 								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
@@ -45,30 +45,17 @@
 		
 
               	 		<h:outputLabel value="เบอร์โทรศัพท์ : " />  
-              	 		<p:inputMask  value="#{empAc.emptel}" label="เบอร์โทรศัพท์" mask="9?99999999999999" maxlength="15"/>
+              	 		<p:inputMask  value="#{custAc.custel}" label="เบอร์โทรศัพท์" mask="9?99999999999999" maxlength="15"/>
               	 		 
+              	 		 <h:outputLabel for="remark : " value="หมายเหตุ :" />  
+              		 	<p:inputTextarea rows="5" cols="30"  label="หมายเหตุ"   value="#{custAc.remark}"  autoResize="false"/>
+              		 	<h:outputLabel />  
+						<h:outputLabel /> 
 
-              	 		<h:outputLabel value="ต่ำแหน่ง  : " />  
-              	 		<p:inputText value="#{empAc.position}" label="ตำแหน่ง"/>
 
-              	 		<h:outputLabel value="เงินเดือน  : " />  
-              	 		<p:inputText value="#{empAc.salary}" label="เงินเดือน" />
-              	 		
-              	
-		 				<h:outputLabel value="วันที่เริ่มงาน : *" />  
-            	 		<p:calendar value="#{empAc.strDate}" label="วันที่เริ่มงาน" id="popupButtonCal" showOn="button" required="true" />  
-            	 		
-            	 		<h:outputLabel value="สถานะ  : " />  
-              	 		<p:selectOneMenu value="#{empAc.status}" label="สถานะ">  
-            				<f:selectItem itemLabel="Active" itemValue="ACT" />  
-            				<f:selectItem itemLabel="Waite" itemValue="WAI" />  
-            				<f:selectItem itemLabel="Delete" itemValue="DEL" />  
-        				</p:selectOneMenu>
-              	 		
 					    
-                    
-                    	<p:commandButton value="Save" actionListener="#{empAc.saveAction}" />
-                 		<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{empAc.reset}" />
+                    	<p:commandButton value="Save" actionListener="#{custAc.saveAction}" />
+                 		<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{custAc.reset}" />
                  	 </h:panelGrid>
                 </p:panel>
 

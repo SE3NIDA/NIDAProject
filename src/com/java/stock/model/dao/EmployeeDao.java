@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.java.stock.model.entity.Customer;
 import com.java.stock.model.entity.Employee;
 import com.java.stock.model.entity.Warehouse;
 
@@ -18,4 +19,5 @@ public interface EmployeeDao {
 	public List<Employee>  searchEmployee(long id, String name) throws DataAccessException,SQLException;
 	
 	public Employee  searchEmployeeByID(long id) throws DataAccessException,SQLException;
+	
 }
