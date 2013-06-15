@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../../templates/layoutComplex.xhtml">
+    
+   
+
+	<ui:define name="content">
+		<div class="entry">
+           
+            <h:form id="form">
+                <p:panel id="panel" header=">> เพิ่มผู้จัดจำหน่าย" style="width:700px;">
+                    <p:messages id="messages" autoUpdate="true"/>
+                    
+                    <h:panelGrid columns="4" >     
+                                  
+                        <h:outputLabel for="supid" value="รหัสผู้จัดจำหน่าย: *" />  
+              	 		<p:inputText id="supid" value="#{supAc.id}" label="รหัสผู้จัดจำหน่าย" required="true" />
+						<h:outputLabel />  
+						<h:outputLabel /> 
+						
+
+                        <h:outputLabel for="supname" value="ชื่อผู้จัดจำหน่าย : *" />  
+              	 		<p:inputText id="supname" value="#{supAc.fName}" label="ชื่อผู้จัดจำหน่านย" required="true"/>
+              	 
+              	 		
+              	 
+              		 	<h:outputLabel for="addrs" value="ที่อยู่ : " />  
+              		 	<p:inputTextarea rows="5" cols="30"  label="ที่อยู่"   value="#{supAc.addrs}"  autoResize="false"/>
+              		 	<h:outputLabel />  
+						<h:outputLabel /> 
+						
+              	 	
+
+              	 		<h:outputLabel value="เบอร์โทรศัพท์ : " />  
+              	 		<p:inputMask  value="#{supAc.custel}" label="เบอร์โทรศัพท์" mask="9?99999999999999" maxlength="15"/>
+              	 		 
+              	 		 <h:outputLabel for="remark : " value="หมายเหตุ :" />  
+              		 	<p:inputTextarea rows="5" cols="30"  label="หมายเหตุ"   value="#{supAc.remark}"  autoResize="false"/>
+              		 	<h:outputLabel />  
+						<h:outputLabel /> 
+
+
+					    
+                    	<p:commandButton value="Save" actionListener="#{supAc.saveAction}" />
+                 		<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{supAc.reset}" />
+                 	 </h:panelGrid>
+                </p:panel>
+
+			</h:form>
+	  </div>
+	
+	</ui:define>
+	
+</ui:composition>

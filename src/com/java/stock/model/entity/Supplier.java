@@ -15,7 +15,6 @@ public class Supplier implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="SUP_ID")
 	private long supId;
 
@@ -119,6 +118,11 @@ public class Supplier implements Serializable {
 
 	public void setBuys(List<Buy> buys) {
 		this.buys = buys;
+	}
+
+	public void setSupPosition(String position) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -5,9 +5,7 @@ import java.util.Date;
 
 public class CustomerBean  implements Serializable {  
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	public String CUS_ID;
 	public String CUS_FNAME;
@@ -18,10 +16,8 @@ public class CustomerBean  implements Serializable {
 	public String CUS_POSITION;
 	public String CUS_REMARK;
 	
-	public CustomerBean(String emp_id,String emp_name
-			,String emp_lname,String emp_addr,String emp_email
-			,String emp_tel,String emp_position,double emp_salary
-			,Date emp_strdate,String emp_state, String user, String pass, String level, String CUS_ID, String CUS_LNAME, String CUS_FNAME, String CUS_ADDR, String CUS_TEL, String CUS_EMAIL, String CUS_POSITION, String CUS_REMARK){
+	public CustomerBean(String CUS_ID, String CUS_LNAME, String CUS_FNAME, String CUS_ADDR, String CUS_TEL, String CUS_EMAIL, String CUS_POSITION, String CUS_REMARK)
+	{
 		this.CUS_ID = CUS_ID;
 		this.CUS_FNAME = CUS_FNAME;
 		this.CUS_LNAME = CUS_LNAME;

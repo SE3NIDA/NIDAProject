@@ -33,6 +33,12 @@
         <managed-bean-class>com.java.stock.control.action.CustomerAction</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>supAc</managed-bean-name>
+        <managed-bean-class>com.java.stock.control.action.SuppliersAction</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 
      <managed-bean>
         <managed-bean-name>warAc</managed-bean-name>
