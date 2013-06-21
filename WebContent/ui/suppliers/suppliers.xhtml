@@ -31,11 +31,9 @@
               		 	<p:inputTextarea rows="5" cols="30"  label="ที่อยู่"   value="#{supAc.addrs}"  autoResize="false"/>
               		 	<h:outputLabel />  
 						<h:outputLabel /> 
-						
-              	 	
 
               	 		<h:outputLabel value="เบอร์โทรศัพท์ : " />  
-              	 		<p:inputMask  value="#{supAc.custel}" label="เบอร์โทรศัพท์" mask="9?99999999999999" maxlength="15"/>
+              	 		<p:inputMask  value="#{supAc.suptel}" label="เบอร์โทรศัพท์" mask="9?99999999999999" maxlength="15"/>
               	 		 
               	 		 <h:outputLabel for="remark : " value="หมายเหตุ :" />  
               		 	<p:inputTextarea rows="5" cols="30"  label="หมายเหตุ"   value="#{supAc.remark}"  autoResize="false"/>
@@ -43,7 +41,6 @@
 						<h:outputLabel /> 
 
 
-					    
                     	<p:commandButton value="Save" actionListener="#{supAc.saveAction}" />
                  		<p:commandButton value="Reset" update="panel" process="@this" actionListener="#{supAc.reset}" />
                  	 </h:panelGrid>

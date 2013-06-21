@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.java.stock.control.action.SuppliersAction;
-import com.java.stock.model.entity.Customer;
+import com.java.stock.model.entity.Supplier;
 import com.java.stock.model.entity.Employee;
 import com.java.stock.model.entity.Supplier;
 import com.java.stock.model.entity.Warehouse;

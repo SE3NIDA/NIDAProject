@@ -48,7 +48,7 @@ public class CustomerAction implements Serializable {
 	public void saveAction() throws SQLException {
         try {
         	
-        	System.out.println("TEST");
+        	//System.out.println("TEST");
         	Customer cus = new Customer();
         		cus.setCusId(new Long(this.getId()));
         		cus.setCusFname(this.getfName());
@@ -151,7 +151,7 @@ public class CustomerAction implements Serializable {
     } 
 	
 	public void onCancel(RowEditEvent event) {  
-	    	FacesMessage msg = new FacesMessage("Cancle", ((EmployeeBean) event.getObject()).getEMP_FNAME());  
+	    	FacesMessage msg = new FacesMessage("Cancle", ((CustomerBean) event.getObject()).getCUS_FNAME());  
 	    	FacesContext.getCurrentInstance().addMessage(null, msg);  
 	}  
 	

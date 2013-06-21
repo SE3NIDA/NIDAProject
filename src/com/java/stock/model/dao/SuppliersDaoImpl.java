@@ -35,7 +35,7 @@ public  class SuppliersDaoImpl extends HibernateDaoSupport implements SuppliersD
 		
 		List<Supplier> objs = null;
 		
-		Criteria crit = session.createCriteria(Customer.class);
+		Criteria crit = session.createCriteria(Supplier.class);
 		List results = crit.list();
 		Iterator itr = results.iterator();
 		objs = new ArrayList<Supplier>();
@@ -53,11 +53,11 @@ public  class SuppliersDaoImpl extends HibernateDaoSupport implements SuppliersD
 			throws DataAccessException, SQLException {
 		List<Supplier> objs = null;
 		
-		DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Supplier.class);
 		if(id != 0)
 			criteria.add(Expression.idEq(id));	
 		if(null != name)
-			criteria.add(Expression.like("cusFname", name , MatchMode.ANYWHERE).ignoreCase());
+			criteria.add(Expression.like("supFname", name , MatchMode.ANYWHERE).ignoreCase());
 		
 		List results = getHibernateTemplate().findByCriteria(criteria);
 		
@@ -71,10 +71,10 @@ public  class SuppliersDaoImpl extends HibernateDaoSupport implements SuppliersD
 		return objs;
 	}
 
-	public Customer searchSuppliersByID1(long id)
+	public Supplier searchSuppliersByID1(long id)
 			throws DataAccessException, SQLException {
 		
-		Customer wah = null;
+		Supplier wah = null;
 		DetachedCriteria criteria = DetachedCriteria.forClass(Customer.class);
 		if(id != 0)
 			criteria.add(Expression.idEq(id));	
@@ -83,7 +83,7 @@ public  class SuppliersDaoImpl extends HibernateDaoSupport implements SuppliersD
 		
 		Iterator itr = results.iterator();
 		  while(itr.hasNext()){
-			   wah = (Customer) itr.next();
+			   wah = (Supplier) itr.next();
 		  }
 		
 		return wah;

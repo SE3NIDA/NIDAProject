@@ -13,14 +13,14 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DataAccessException;
 
-import com.java.stock.common.util.CustomerBean;
+import com.java.stock.common.util.SuppliersBean;
 import com.java.stock.common.util.EmployeeBean;
 import com.java.stock.common.util.ServiceFinder;
 import com.java.stock.common.util.SuppliersBean;
-import com.java.stock.model.dao.CustomerDao;
+import com.java.stock.model.dao.SuppliersDao;
 import com.java.stock.model.dao.EmployeeDao;
 import com.java.stock.model.dao.SuppliersDao;
-import com.java.stock.model.entity.Customer;
+import com.java.stock.model.entity.Supplier;
 import com.java.stock.model.entity.Employee;
 import com.java.stock.model.entity.Supplier;
 
@@ -31,9 +31,10 @@ public class SuppliersAction implements Serializable {
 	private String  id;
 	private String fName;
 	private String addrs;
-	private String custel;
+	private String suptel;
 	private String position;
 	private String remark;
+	private String status;
 	
 	private List<SuppliersBean> theSupliersList;
 	
@@ -54,7 +55,7 @@ public class SuppliersAction implements Serializable {
         	sup.setSupId(new Long(this.getId()));
         	sup.setSupName(this.getfName());
         	sup.setSupAddrs(this.getAddrs());
-        	sup.setSupTel(this.getCustel());
+        	sup.setSupTel(this.getSuptel());
         	sup.setSupPosition(this.getPosition());
         	sup.setSupRemark(this.getRemark());        		
         		
@@ -120,7 +121,7 @@ public class SuppliersAction implements Serializable {
 		SuppliersBean whaBean = (SuppliersBean) event.getObject();
 	
 		try {
-		Object cusDao = null;
+		Object supDao = null;
 		Supplier sup =  ((SuppliersDao) supDao).searchSuppliersByID(new Long(whaBean.getSUP_ID()));
 			
 			sup.setSupAddrs(whaBean.getSUP_ADDR());
@@ -130,7 +131,7 @@ public class SuppliersAction implements Serializable {
 			sup.setSupRemark(whaBean.getSUP_REMARK());
 			
 			
-			((SuppliersDao) cusDao).addnewSup(sup);
+			((SuppliersDao) supDao).addnewSup(sup);
 			
 		} catch (DataAccessException e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Save Error !", whaBean.getSUP_FNAME());
@@ -183,12 +184,12 @@ public class SuppliersAction implements Serializable {
 	}
 
 
-	public String getCustel() {
-		return custel;
+	public String getSuptel() {
+		return suptel;
 	}
 
-	public void setCustel(String custel) {
-		this.custel = custel;
+	public void setSuptel(String suptel) {
+		this.suptel = suptel;
 	}
 
 
@@ -205,7 +206,7 @@ public class SuppliersAction implements Serializable {
 		return theSupliersList;
 	}
 
-	public void setTheCustomer(List<SuppliersBean> theSuppliersList) {
+	public void setTheSuppliers(List<SuppliersBean> theSuppliersList) {
 		this.theSupliersList= theSupliersList ;
 	}
 
