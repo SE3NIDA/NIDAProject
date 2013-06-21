@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="../../templates/layoutComplex.xhtml">
+    
+   
+
+	<ui:define name="content">
+		<div class="entry">
+           
+            <h:form id="form">
+		
+           
+                <p:panel id="panel" header=">> แก้ไข/ลบ ค้นหาข้อมูลผู้จัดจำหน่าย" style="width:500px;">
+                    <h:panelGrid columns="4" >     
+                        <p:selectOneMenu value="#{supAc.status}" label="สถานะ" style="width:170px;">  
+            				<f:selectItem itemLabel="ค้นหาทั้งหมด" itemValue="0" />  
+            				<f:selectItem itemLabel="รหัสผู้จัดจำหน่าย" itemValue="1" />  
+            				<f:selectItem itemLabel="ชื่อผู้จัดจำหน่าย" itemValue="2" />  
+        				</p:selectOneMenu>
+              	 		<p:inputText id="waid" value="#{supAc.id}" label="รหัสผู้จัดจำหน่าย" style="width:200px;"/> 
+              	 		<h:outputLabel />
+              	 		<p:commandButton value="Search" actionListener="#{supAc.searchAction}" update=":form,:form:mess" style="width:75px; height:25px; text-align:right;" />
+                 	 </h:panelGrid>
+                </p:panel>
+                 <p:spacer height="10" />
+       			      
+				    <p:growl id="mess" showDetail="true" autoUpdate="true"/>  
+			
+				    <p:dataTable  var="suppliersBean" value="#{supAc.theSuppliersList}" id="suppliersBean" 
+				               editable="true"  paginator="true" rows="10"  rowIndexVar="rowIndex" style="width:1200px;">  
+				  
+				        <f:facet name="header">  
+				            Result 
+				        </f:facet>  
+				 
+				        <p:column sortBy="#{suppliersBean.SUP_ID}" headerText="รหัสผู้จัดจำหน่าย" style="width:10%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{suppliersBean.SUP_ID}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <h:outputText value="#{suppliersBean.SUP_ID}" />  
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column>  
+				  
+				        <p:column headerText="ชื่อ นามสกุล" style="width:30%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{suppliersBean.EMP_FNAME} #{employeeBean.EMP_LNAME}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <p:inputText value="#{suppliersBean.SUP_FNAME}" style="width:100%" />  
+				                    <p:inputText value="#{suppliersBean.SUP_LNAME}" style="width:100%"/>  
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column>  
+				        
+				         <p:column headerText="ที่อยู่" style="width:60%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{suppliersBean.SUP_ADDR}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <p:inputText value="#{suppliersBean.SUP_ADDR}" style="width:100%"/>  
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column>  
+				       
+				        <p:column headerText="TEL" style="width:10%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{suppliersBean.SUP_TEL}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <p:inputText value="#{suppliersBean.SUP_TEL}" style="width:50%" />  
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column> 
+				    
+				    
+				         <p:column headerText="หมายเหตุ" style="width:60%">  
+				            <p:cellEditor>  
+				                <f:facet name="output">  
+				                    <h:outputText value="#{suppliersBean.SUP_REMARK}" />  
+				                </f:facet>  
+				                <f:facet name="input">  
+				                    <p:inputText value="#{suppliersBean.SUP_REMARK}" style="width:100%"/>  
+				                </f:facet>  
+				            </p:cellEditor>  
+				        </p:column>  
+				  
+				        <p:column style="width:6%">  
+				            <p:rowEditor />  
+				        </p:column>  
+				        
+				        <p:ajax event="rowEdit" listener="#{supAc.onEdit}" process="@this" update=":form:mess" >  </p:ajax>
+				        <p:ajax event="rowEditCancel" listener="#{supAc.onCancel}" process="@this"  update=":form:mess">  </p:ajax>
+				  
+				    </p:dataTable>  
+				</h:form>  
+	  </div>
+	
+	</ui:define>
+	
+</ui:composition>
